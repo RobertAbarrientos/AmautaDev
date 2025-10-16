@@ -1,5 +1,5 @@
 # ============================================
-# ETAPA 1 - BACKEND (Composer)
+# ETAPA 1: Backend - PHP + Composer
 # ============================================
 FROM php:8.3-apache AS backend
 WORKDIR /var/www/html
@@ -12,28 +12,35 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar y preparar dependencias PHP
+# Copiar archivos necesarios para Composer
 COPY composer.json composer.lock ./
+
+# Instalar dependencias PHP (incluye Ziggy)
 RUN composer install --no-dev --optimize-autoloader
 
 # Copiar todo el proyecto
 COPY . .
 
-# Generar clave de aplicación
+# Generar APP_KEY
 RUN php artisan key:generate
 
 # ============================================
-# ETAPA 2 - FRONTEND (Vite)
+# ETAPA 2: Frontend - Node + Vite
 # ============================================
 FROM node:22-alpine AS frontend
 WORKDIR /app
-COPY package*.json ./
+
+# Copiar el código del backend (ya con vendor)
+COPY --from=backend /var/www/html /app
+
+# Instalar dependencias NPM
 RUN npm install --legacy-peer-deps
-COPY . .
+
+# Compilar assets
 RUN npm run build
 
 # ============================================
-# ETAPA 3 - IMAGEN FINAL (Producción)
+# ETAPA 3: Producción - PHP con Apache
 # ============================================
 FROM php:8.3-apache
 WORKDIR /var/www/html
@@ -43,17 +50,17 @@ RUN apt-get update && apt-get install -y \
     git unzip libpng-dev libonig-dev libxml2-dev zip curl && \
     docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
-# Copiar el backend (Laravel) desde la etapa 1
+# Copiar backend (Laravel) y vendor desde la etapa 1
 COPY --from=backend /var/www/html /var/www/html
 
-# Copiar el frontend compilado desde la etapa 2
+# Copiar frontend (public/) desde la etapa 2
 COPY --from=frontend /app/public /var/www/html/public
 
-# Permisos de escritura
+# Permisos
 RUN chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Puerto expuesto
+# Exponer puerto
 EXPOSE 80
 
-# Iniciar Laravel con Artisan
+# Iniciar servidor Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
