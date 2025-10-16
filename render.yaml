@@ -1,8 +1,9 @@
 services:
   - type: web
     name: AmautaDev
-    runtime: docker
+    env: docker
     plan: free
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV
         value: production
