@@ -1,20 +1,19 @@
 <template>
-  <footer class="mt-16 border-t border-slate-200 bg-white/80">
-    <div class="container mx-auto px-4 py-10 grid md:grid-cols-3 gap-10">
-      <!-- COLUMNA 1 -->
+  <footer class="relative bg-gradient-to-b from-white to-[#F8FBFF] border-t border-slate-200 pt-14 pb-8">
+    <div class="container mx-auto px-6 grid md:grid-cols-3 gap-10 items-start text-center md:text-left">
+      
       <div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-8 h-8 rounded-xl bg-[#0A66CC] shadow-md"></div>
-          <span class="font-extrabold text-slate-800 text-lg">AmautaDev</span>
+        <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+          <img src="/images/AmautaDev_logo.png" alt="AmautaDev" class="w-8 h-8">
+          <span class="text-xl font-bold text-slate-800">AmautaDev</span>
         </div>
-        <p class="text-slate-600">
+        <p class="text-slate-600 max-w-xs mx-auto md:mx-0">
           Desarrollamos el futuro de tu marca con tecnología e innovación.
         </p>
       </div>
 
-      <!-- COLUMNA 2 -->
       <div>
-        <h4 class="font-bold mb-3 text-slate-800">Enlaces</h4>
+        <h3 class="font-semibold text-slate-900 mb-3">Enlaces</h3>
         <ul class="space-y-2 text-slate-600">
           <li><a href="/servicios" class="hover:text-[#0A66CC]">Servicios</a></li>
           <li><a href="/portafolio" class="hover:text-[#0A66CC]">Portafolio</a></li>
@@ -22,30 +21,34 @@
         </ul>
       </div>
 
-      <!-- COLUMNA 3 -->
       <div>
-        <h4 class="font-bold mb-3 text-slate-800">Contáctanos</h4>
-        <p class="text-slate-600">hola@amautadev.com</p>
-        <a href="/contacto" class="btn-brand mt-4 inline-flex">Hablemos</a>
+        <h3 class="font-semibold text-slate-900 mb-3">Contáctanos</h3>
+        <a href="mailto:hola@amautadev.com" class="text-slate-600 block mb-4 hover:text-[#0A66CC]">
+          hola@amautadev.com
+        </a>
+        <a
+          href="/contacto"
+          class="inline-block bg-[#0A66CC] text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-[#084DA0] transition"
+        >
+          Hablemos
+        </a>
+        <div class="flex justify-center md:justify-start gap-4 mt-5 text-slate-500">
+          <a href="#" class="hover:text-[#0A66CC] text-2xl"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="hover:text-[#0A66CC] text-2xl"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="hover:text-[#0A66CC] text-2xl"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="hover:text-[#0A66CC] text-2xl"><i class="fa-brands fa-github"></i></a>
+        </div>
       </div>
     </div>
 
-    <div class="text-center text-xs text-slate-500 pb-6">
-      © {{ new Date().getFullYear() }} AmautaDev — Todos los derechos reservados.
+    <div class="mt-10 border-t border-slate-200 pt-6 text-center text-slate-500 text-sm">
+      © 2025 <span class="font-semibold text-slate-700">AmautaDev</span> — Todos los derechos reservados.
     </div>
   </footer>
 </template>
 
 <style scoped>
-.btn-brand {
-  background-color: #0A66CC;
-  color: white;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 0.75rem;
-  transition: 0.2s;
-}
-.btn-brand:hover {
-  background-color: #084DA0;
+footer {
+  font-family: 'Inter', sans-serif;
 }
 </style>

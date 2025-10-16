@@ -1,28 +1,27 @@
 <script setup>
-const props = defineProps({
-  icon: { type: String, default: '⚙️' },
-  title: { type: String, default: 'Título' },
-  text: { type: String, default: 'Descripción del beneficio o característica.' },
+defineProps({
+  icon: String,
+  title: String,
+  description: String,
+  gradient: String
 })
 </script>
 
 <template>
-  <div class="card p-8 text-center hover:shadow-lg transition-all duration-300">
-    <div class="text-4xl mb-4 select-none">{{ icon }}</div>
-    <h3 class="text-xl font-bold text-slate-800 mb-2">{{ title }}</h3>
-    <p class="text-slate-600 text-base leading-relaxed">{{ text }}</p>
-  </div>
-</template>
+  <article
+    class="group bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-md hover:shadow-2xl 
+           transition-all duration-300 hover:-translate-y-3 border border-slate-100 
+           hover:border-[#0A66CC]/30 hover:bg-white/90"
+  >
+    <div
+      class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full 
+             text-white text-4xl shadow-lg group-hover:scale-110 transition-transform"
+      :class="`bg-gradient-to-tr ${gradient}`"
+    >
+      {{ icon }}
+    </div>
 
-<style scoped>
-.card {
-  background-color: white;
-  border-radius: 1.5rem;
-  border: 1px solid #e2e8f0;
-  transition: 0.3s;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(10, 102, 204, 0.2);
-}
-</style>
+    <h3 class="text-2xl font-bold text-slate-800 mb-3">{{ title }}</h3>
+    <p class="text-slate-600 leading-relaxed">{{ description }}</p>
+  </article>
+</template>
